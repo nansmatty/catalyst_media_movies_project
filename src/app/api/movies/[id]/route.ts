@@ -7,8 +7,6 @@ const TMDB_READ_BEARER_ACCESS_TOKEN = process.env.TMDB_READ_BEARER_ACCESS_TOKEN!
 export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
 	const id = (await params).id;
 
-	console.log({ serverlog: id });
-
 	if (!id || isNaN(Number(id))) {
 		return NextResponse.json({ message: 'Invalid movie ID' }, { status: 400 });
 	}
