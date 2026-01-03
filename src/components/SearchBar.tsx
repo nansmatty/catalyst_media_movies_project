@@ -21,7 +21,7 @@ const SearchBar = () => {
 			if (query.trim() === '') {
 				router.push(`/`);
 			}
-		}, 800);
+		}, 400);
 
 		return () => clearTimeout(delayDebounceFunc);
 	}, [query, router]);
