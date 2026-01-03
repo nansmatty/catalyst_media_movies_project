@@ -34,19 +34,23 @@ The project demonstrates SSR, API integration via Route Handlers, caching, error
 
 ## 📁 Project Structure
 
-src/
-├── app/
-│ ├── api/
-│ │ ├── movies/
-│ │ │ ├── search/route.ts
-│ │ │ └── [id]/route.ts
-│ │ └── config/route.ts
-│ ├── movie/[id]/page.tsx
-│ └── page.tsx
-├── components/
-├── lib/
-│ └── tmdb-config.ts
-tests/
+```
+
+  src/
+  ├── app/
+  │ ├── api/
+  │ │ ├── movies/
+  │ │ │ ├── search/route.ts
+  │ │ │ └── [id]/route.ts
+  │ │ └── config/route.ts
+  │ ├── movie/[id]/page.tsx
+  │ └── page.tsx
+  ├── components/
+  ├── lib/
+  │ └── tmdb-config.ts
+  tests/
+
+```
 
 ---
 
@@ -76,16 +80,18 @@ Open: 👉 http://localhost:3000
 
 ## 🧠 Caching Strategy
 
-- Search API (/api/movies/search)
-  -- revalidate: 60 seconds
-  -- Balances freshness with API rate limits
+- Search API (`/api/movies/search`)
 
-- Movie details API (/api/movies/[id])
-  -- revalidate: 60 seconds
+  - revalidate: 60 seconds
+  - Balances freshness with API rate limits
 
-- TMDB configuration API (/api/config)
-  -- Cached aggressively (24 hours)
-  -- Configuration data changes infrequently
+- Movie details API (`/api/movies/[id]`)
+
+  - revalidate: 60 seconds
+
+- TMDB configuration API (`/api/config`)
+  - Cached aggressively (24 hours)
+  - Configuration data changes infrequently
 
 This strategy reduces TMDB API calls while keeping data reasonably fresh.
 
