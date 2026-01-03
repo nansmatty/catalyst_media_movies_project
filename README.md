@@ -121,11 +121,11 @@ npm run test
 ## Included tests
 
 - Route Handler Test
-  -- Success case for /api/movies/search
-  -- Failure case when TMDB rate limit (429) is exceeded
+  - Success case for /api/movies/search
+  - Failure case when TMDB rate limit (429) is exceeded
 - Mocked external dependencies
-  -- No real TMDB calls during tests
-  -- All external fetch calls are mocked
+  - No real TMDB calls during tests
+  - All external fetch calls are mocked
 
 These tests provide real signal and validate core backend behavior.
 
