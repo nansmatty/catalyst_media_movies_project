@@ -37,7 +37,7 @@ export default async function Home({ searchParams }: SearchPageProps) {
 	}
 
 	return (
-		<div className='w-screen h-screen flex items-center justify-center'>
+		<div className='w-screen min-h-screen flex items-center justify-center'>
 			<div className='max-w-4xl w-full px-4'>
 				<SearchBar />
 				{error && <p className='text-center mt-12 text-red-600'>{error}</p>}
