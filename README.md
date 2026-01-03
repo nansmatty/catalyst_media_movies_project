@@ -139,7 +139,7 @@ The application is deployed on Vercel (or Netlify).
 - Production build runs successfully
 - Public URL is accessible
 
-👉 Deployed URL : https://catalystmediamoviestask.vercel.app/
+👉 Deployed URL : https://catalyst-media-tmdb-movie-task.vercel.app/
 
 ---
 
