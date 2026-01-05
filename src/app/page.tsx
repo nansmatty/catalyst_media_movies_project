@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: SearchPageProps) {
 			const protocol = host?.includes('localhost') ? 'http' : 'https';
 
 			const res = await fetch(`${protocol}://${host}/api/movies/search?q=${encodeURIComponent(q)}&page=${page}`, {
-				cache: 'no-store',
+				next: { revalidate: 60 },
 			});
 
 			if (!res.ok) {
