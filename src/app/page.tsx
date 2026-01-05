@@ -1,4 +1,5 @@
 import MoviesResults from '@/components/MoviesResults';
+import PaginationControls from '@/components/Pagination';
 import SearchBar from '@/components/SearchBar';
 import { headers } from 'next/headers';
 
@@ -9,7 +10,7 @@ type SearchPageProps = {
 export default async function Home({ searchParams }: SearchPageProps) {
 	const searchQuery = await searchParams;
 
-	const q = await searchQuery?.q?.trim();
+	const q = searchQuery?.q?.trim() || 'batman';
 
 	const page = Number(searchQuery?.page ?? 1);
 
@@ -37,11 +38,19 @@ export default async function Home({ searchParams }: SearchPageProps) {
 	}
 
 	return (
-		<div className='w-screen min-h-screen flex items-center justify-center'>
+		<div className='w-screen min-h-screen relative flex flex-col items-center p-12 gap-8'>
 			<div className='max-w-4xl w-full px-4'>
 				<SearchBar />
+			</div>
+			<div className='w-full p-8'>
 				{error && <p className='text-center mt-12 text-red-600'>{error}</p>}
-				{results && <MoviesResults results={results?.results || []} />}
+				{results && (
+					<>
+						<MoviesResults results={results.results} />
+
+						<PaginationControls currentPage={results.page} totalPages={results.total_pages} query={q} />
+					</>
+				)}
 			</div>
 		</div>
 	);
