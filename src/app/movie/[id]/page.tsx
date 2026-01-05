@@ -1,4 +1,5 @@
 import { headers } from 'next/headers';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 type MoviePageProps = {
@@ -80,7 +81,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
 		<div className='min-h-screen flex justify-center px-4 pt-16'>
 			<div className='max-w-6xl w-full'>
 				<div className='flex gap-4'>
-					{movie.poster_url && <img src={movie.poster_url} alt={movie.title} className='w-48 rounded' />}
+					{movie.poster_url && <Image src={movie.poster_url} alt={movie.title} width={350} height={450} className='rounded' priority />}
 
 					<div>
 						<h1 className='text-3xl font-bold'>{movie.title}</h1>
@@ -108,7 +109,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
 						<div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4'>
 							{movie.cast.map((actor: any) => (
 								<div key={actor.name} className='text-sm'>
-									{actor.profile_url && <img src={actor.profile_url} alt={actor.name} className='rounded mb-2' />}
+									{actor.profile_url && <Image src={actor.profile_url} width={150} height={250} alt={actor.name} className='rounded mb-2' />}
 									<p className='font-medium'>{actor.name}</p>
 									<p className='text-gray-500'>{actor.character}</p>
 								</div>
