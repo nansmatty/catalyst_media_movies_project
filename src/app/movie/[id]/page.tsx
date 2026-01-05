@@ -7,6 +7,51 @@ type MoviePageProps = {
 	}>;
 };
 
+export async function generateMetadata({ params }: MoviePageProps) {
+	const movieId = (await params).id;
+
+	if (!movieId || isNaN(Number(movieId))) {
+		return {
+			title: 'Movie Not Found',
+			description: 'The requested movie does not exist.',
+		};
+	}
+
+	const host = (await headers()).get('host');
+	const protocol = host?.includes('localhost') ? 'http' : 'https';
+
+	try {
+		const res = await fetch(`${protocol}://${host}/api/movies/${movieId}`, {
+			next: { revalidate: 60 },
+		});
+
+		if (res.status === 404) {
+			return {
+				title: 'Movie Not Found',
+				description: 'The requested movie does not exist.',
+			};
+		}
+
+		if (!res.ok) {
+			return {
+				title: 'Error Loading Movie',
+				description: 'Unable to load movie details at this time.',
+			};
+		}
+
+		const movie = await res.json();
+		return {
+			title: movie.title,
+			description: movie.overview,
+		};
+	} catch (error) {
+		return {
+			title: 'Error Loading Movie',
+			description: 'An unexpected error occurred while loading movie details.',
+		};
+	}
+}
+
 export default async function MoviePage({ params }: MoviePageProps) {
 	const movieId = (await params).id;
 
@@ -18,7 +63,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
 	const protocol = host?.includes('localhost') ? 'http' : 'https';
 
 	const res = await fetch(`${protocol}://${host}/api/movies/${movieId}`, {
-		cache: 'no-store',
+		next: { revalidate: 60 },
 	});
 
 	if (res.status === 404) {
